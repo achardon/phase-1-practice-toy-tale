@@ -39,7 +39,6 @@ function renderToyCard(data) {
     const h2 = document.createElement('h2')
     h2.innerText = data[toy].name
     newToy.appendChild(h2)
-    //debugger;
     const img = document.createElement('img')
     img.src = data[toy].image
     img.className = 'toy-avatar'
@@ -52,20 +51,14 @@ function renderToyCard(data) {
     button.id = data[toy].id
     button.innerText = 'Like'
     newToy.appendChild(button)
-    button.addEventListener('click', () => increaseLike(data[toy].likes, button))
+    //add event listener on like button
+    button.addEventListener('click', () => increaseLike(p.innerText.split(' ')[0], button))
   }
-    //update likes
-    // const likeButtons = document.querySelectorAll('button.like-btn')
-    // likeButtons.forEach(button => {
-    //   button.addEventListener('click', () => increaseLike(button))
-    // })
-  
 }
 
 //increaseLike function with patch request
 function increaseLike(currentLikes, button) {
   const toyID = button.id
-  //debugger;
   const updatedLikes = ++currentLikes
   fetch(`http://localhost:3000/toys/${toyID}`, {
       method: "PATCH",
@@ -84,7 +77,7 @@ function increaseLike(currentLikes, button) {
     })
 }
 
-  //adding new toy with post request
+//adding new toy with post request
 function addNewToy (e) {
     fetch('http://localhost:3000/toys', {
       method: "POST",
@@ -119,10 +112,9 @@ function addNewToy (e) {
       button.id = data.id
       button.innerText = 'Like'
       newToy.appendChild(button)
-      button.addEventListener('click', () => increaseLike(data.likes, button))
+      //add event listener for like button
+      button.addEventListener('click', () => increaseLike(p.innerText.split(' ')[0], button))
       })
 }
-
-
 
 getToys();
